@@ -1,13 +1,12 @@
 def app(environ, start_response):
-   status = "200 OK"
+  
    list = environ['QUERY_STRING'].split("&")
-   body = ''
-   for x in list:         
-       body = body + x + "\n"
-   response_headers = [
-     ('Content-Type', 'text/plain'),
-     ('Content-Length', len(body))
-   
-   ]
-   start_repsonse(status, response_headers)
-   return [body]
+   body = [bytes(i + '\n', 'ascii') for i in environ['QUERY_STRING'].split('&')]
+  
+   start_response("200 OK", [
+            ("Content-Type", "text/plain")
+           
+        ])
+
+
+   return body
