@@ -1,1 +1,1 @@
-# stepic_web_project
+# python django web project
