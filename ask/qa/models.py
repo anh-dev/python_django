@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Question(models.Model):
-  title = models.CharField()
+  title = models.CharField(max_length=255)
   text = models.TextField()
   added_at = models.DateField(auto_now_add=True)
   rating = models.IntegerField()
-  author = models.ForeignKey(User, on_delete=models.SET_NULL)
+  author = models.ForeignKey(User)
   likes = models.ManyToManyField(User,related_name='question_like_user')
 
 class Answer(models.Model):
@@ -18,7 +18,7 @@ class Answer(models.Model):
   text = models.TextField()
   added_at = models.DateField(auto_now_add=True)
   question = models.OneToOneField(Question)
-  author = models.ForeignKey(User, on_delete=models.SET_NULL)
+  author = models.ForeignKey(User)
   def new(self):
      return self.order_by('-added_at')
   def popular(self):
